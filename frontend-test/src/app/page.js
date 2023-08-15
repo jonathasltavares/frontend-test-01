@@ -1,8 +1,9 @@
-import Header from "./components/header" 
+import { HeaderSearchBar} from "./components/header" 
+
 export default function Home() {
   return (
    <>
-    <Header />
+    <HeaderSearchBar />
    </>
   )
 }
