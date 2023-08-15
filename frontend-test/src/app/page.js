@@ -1,5 +1,4 @@
-import { HeaderSearchBar} from "./components/header" 
-
+import { HeaderSearchBar } from "./components/header" 
 export default function Home() {
   return (
    <>
