@@ -18,8 +18,9 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
   const actions = [
-    { icon: <ShowChartOutlinedIcon />, name: 'Line Graph' },
+    { icon: <ShowChartOutlinedIcon />, name: 'Line Graph', href: '/Form/line' },
     { icon: <PieChartOutlineOutlinedIcon />, name: 'Pie Chart' },
     { icon: <BarChartOutlinedIcon />, name: 'Bar Chart' },
     { icon: <DonutLargeOutlinedIcon />, name: 'Donut Chart' },
