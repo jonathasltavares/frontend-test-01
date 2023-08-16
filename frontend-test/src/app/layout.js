@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
 
   const actions = [
     { icon: <ShowChartOutlinedIcon />, name: 'Line Graph', href: '/Form/line' },
-    { icon: <PieChartOutlineOutlinedIcon />, name: 'Pie Chart' },
-    { icon: <BarChartOutlinedIcon />, name: 'Bar Chart' },
-    { icon: <DonutLargeOutlinedIcon />, name: 'Donut Chart' },
+    { icon: <PieChartOutlineOutlinedIcon />, name: 'Pie Chart', href: '/Form/pie' },
+    { icon: <BarChartOutlinedIcon />, name: 'Bar Chart', href: '/Form/bar' },
+    { icon: <DonutLargeOutlinedIcon />, name: 'Donut Chart', href: '/Form/donut' },
   ];
 
   return (

@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 import React from 'react';
 
-export default function CardComponent({ width, title, primaryButton, secondaryButton }) {
+export default function CardComponent({ width, title, type ,primaryButton, secondaryButton }) {
     const [anchorEl, setAnchorEl] = React.useState(
         null
       );
@@ -52,6 +52,7 @@ export default function CardComponent({ width, title, primaryButton, secondaryBu
             <Button variant="text" color="error">{secondaryButton}</Button>
         </Popover>
         <CardContent>
+          <h1>{type}</h1>
       </CardContent>
     </Card>
     )
