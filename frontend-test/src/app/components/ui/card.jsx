@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 import React from 'react';
 
-export default function CardComponent({ width, title, type ,primaryButton, secondaryButton }) {
+export default function CardComponent({ width, title, type ,primaryButton, secondaryButton, primaryClick, secondaryClick }) {
     const [anchorEl, setAnchorEl] = React.useState(
         null
       );
@@ -25,6 +25,11 @@ export default function CardComponent({ width, title, type ,primaryButton, secon
       const open = Boolean(anchorEl);
       const id = open ? "simple-popover" : undefined;
     
+      const handlePrimaryClick = () => {}
+      const handleSecondaryClick = () => {
+        secondaryClick()
+        handleClose()
+      }
 
     return(
         <Card className={width}>
@@ -48,8 +53,8 @@ export default function CardComponent({ width, title, type ,primaryButton, secon
                 horizontal: "left"
                 }}
         >
-            <Button variant="text" color="primary">{primaryButton}</Button>
-            <Button variant="text" color="error">{secondaryButton}</Button>
+            <Button variant="text" color="primary" onClick={handlePrimaryClick}>{primaryButton}</Button>
+            <Button variant="text" color="error" onClick={handleSecondaryClick}>{secondaryButton}</Button>
         </Popover>
         <CardContent>
           <h1>{type}</h1>
