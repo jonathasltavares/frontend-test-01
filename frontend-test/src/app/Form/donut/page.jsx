@@ -20,7 +20,7 @@ export default function DonutForm(){
 
   const handleClick = () => {
     if(inputData.length > 0){
-      addWidget({name: inputData, type: 'donut'})
+      addWidget({ name: inputData, type: 'donut'})
       setInputData('')
       router.push('/')
 

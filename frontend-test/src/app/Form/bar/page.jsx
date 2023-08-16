@@ -20,7 +20,7 @@ export default function BarForm(){
 
   const handleClick = () => {
     if(inputData.length > 0){
-      addWidget({name: inputData, type: 'bar'})
+      addWidget({ name: inputData, type: 'bar'})
       setInputData('')
       router.push('/')
 

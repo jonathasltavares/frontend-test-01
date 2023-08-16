@@ -20,7 +20,7 @@ export default function PieForm(){
 
   const handleClick = () => {
     if(inputData.length > 0){
-      addWidget({name: inputData, type: 'pie'})
+      addWidget({ name: inputData, type: 'pie'})
       setInputData('')
       router.push('/')
 

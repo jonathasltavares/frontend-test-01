@@ -2,6 +2,8 @@
 
 import { createContext, useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 const WidgetsContext = createContext({});
 
 const WidgetsProvider = ({ children }) => {
@@ -31,7 +33,7 @@ const WidgetsProvider = ({ children }) => {
       ])
 
       const addWidget = (widget) => {
-        setWidgets([...widgets, widget])
+        setWidgets([...widgets, {id: uuidv4(), ...widget}])
       }
 
       const editWidget = (id, updatedWidget) => {
