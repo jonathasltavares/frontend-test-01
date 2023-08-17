@@ -24,7 +24,7 @@ export default function pieForm({operation}){
         >
             <div className='flex flex-col items-center'>
                 <InputComponent isDisabled={false} isRequired={true} label="Name" onChange={handleChange} />
-                <ButtonComponent size={'large'} isDisabled={false} variant="contained" text={operation} color="1976d2" onClick={() => {console.log(inputNameData)}}/>
+                <ButtonComponent size={'large'} isDisabled={false} variant="contained" text={operation} color="#1976d2" onClick={() => {console.log(inputNameData)}}/>
             </div>
         </Box>
     )
