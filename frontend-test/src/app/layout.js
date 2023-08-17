@@ -20,10 +20,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
 
   const actions = [
-    { icon: <ShowChartOutlinedIcon />, name: 'Line Graph', href: '/Form/line' },
-    { icon: <PieChartOutlineOutlinedIcon />, name: 'Pie Chart', href: '/Form/pie' },
-    { icon: <BarChartOutlinedIcon />, name: 'Bar Chart', href: '/Form/bar' },
-    { icon: <DonutLargeOutlinedIcon />, name: 'Donut Chart', href: '/Form/donut' },
+    { icon: <ShowChartOutlinedIcon />, name: 'Line Graph', href: '/add/line' },
+    { icon: <PieChartOutlineOutlinedIcon />, name: 'Pie Chart', href: '/add/pie' },
+    { icon: <BarChartOutlinedIcon />, name: 'Bar Chart', href: '/add/bar' },
+    { icon: <DonutLargeOutlinedIcon />, name: 'Donut Chart', href: '/add/donut' },
   ];
 
   return (
