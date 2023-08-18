@@ -7,36 +7,14 @@ import { v4 as uuidv4 } from "uuid";
 const WidgetsContext = createContext({});
 
 const WidgetsProvider = ({ children }) => {
-    const [widgets, setWidgets] = useState([
-        {
-          id: 1,
-          name: "Widget 1",
-        },
-        {
-          id: 2,
-          name: "Widget 2",
-        },
-        {
-          id: 3,
-          name: "Widget 3",
-        },
-        {
-          id: 4,
-          name: "Widget 4",
-          type: "line",
-        },
-        {
-          id: 5,
-          name: "Widget 5",
-          type: "line",
-        }
-      ])
+    const [widgets, setWidgets] = useState([])
+
 
       const addWidget = (widget) => {
         setWidgets([...widgets, {id: uuidv4(), ...widget}])
       }
 
-      const editWidget = (id, updatedWidget) => {
+      const updateWidget = (id, updatedWidget) => {
         setWidgets(
           widgets.map((widget) => (widget.id === id ? updatedWidget : widget))
         )
@@ -50,7 +28,7 @@ const WidgetsProvider = ({ children }) => {
         <WidgetsContext.Provider value={{
             widgets,
             addWidget,
-            editWidget,
+            updateWidget,
             deleteWidget
         }}>{children}</WidgetsContext.Provider>
     )

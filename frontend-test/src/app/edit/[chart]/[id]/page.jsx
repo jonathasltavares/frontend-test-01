@@ -1,30 +1,33 @@
+import { Typography } from "@mui/material"
+
 import BarForm from "@/app/components/forms/barForm"
 import DonutForm from "@/app/components/forms/donutForm"
 import LineForm from "@/app/components/forms/lineForm"
 import PieForm from "@/app/components/forms/pieForm"
 
-import { Typography } from "@mui/material"
 
-export default function addPage({
-    params: {chart}
+export default function editPage({
+    params: {
+        chart, id
+    }
 }){
     function formComponent(){
         switch(chart){
             case 'line':
-                return <LineForm operation="add"/>
+                return <LineForm operation="update" id={id}/>
             case 'pie':
-                return <PieForm operation="add"/>
+                return <PieForm operation="update" id={id}/>
             case 'bar':
-                return <BarForm operation="add"/>
+                return <BarForm operation="update" id={id}/>
             case 'donut':
-                return <DonutForm operation="add"/>
+                return <DonutForm operation="update" id={id}/>
             
         }
     }
     return(
         <div className="flex flex-col items-center pt-5">
             <Typography variant="h3" gutterBottom>
-                Add {chart} Chart
+                Update {chart} Chart
             </Typography>
             {formComponent()}
         </div>

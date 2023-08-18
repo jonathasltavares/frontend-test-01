@@ -25,7 +25,10 @@ export default function CardComponent({ width, title, type ,primaryButton, secon
       const open = Boolean(anchorEl);
       const id = open ? "simple-popover" : undefined;
     
-      const handlePrimaryClick = () => {}
+      const handlePrimaryClick = () => {
+        primaryClick()
+        handleClose()
+      }
       const handleSecondaryClick = () => {
         secondaryClick()
         handleClose()
