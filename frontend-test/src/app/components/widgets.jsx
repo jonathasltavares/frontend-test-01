@@ -6,11 +6,11 @@ import { WidgetsContext } from "../contexts/widgets"
 
 export default function Widgets(){
 
-    const { widgets } = useContext(WidgetsContext)
-    console.log(widgets)
+    const { filtedWidgets } = useContext(WidgetsContext)
+    
     return (
         <div className="flex flex-col items-center mt-10 gap-5">
-            {widgets.map((widget=> <Widget widget={widget} key={widget.id}/>))}
+            {filtedWidgets.map((widget=> <Widget widget={widget} key={widget.id}/>))}
         </div>
     )
 }

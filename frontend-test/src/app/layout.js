@@ -35,8 +35,8 @@ export default function RootLayout({ children }) {
       <link rel="manifest" href="/favicon_ico/site.webmanifest" />
       </head>
       <body className={inter.className}>
-        <Header/>
         <WidgetsProvider>
+        <Header/>
           {children}
           <SpeedDialComponent actions={actions}/>
         </WidgetsProvider>
