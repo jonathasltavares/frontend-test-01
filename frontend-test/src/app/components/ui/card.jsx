@@ -45,7 +45,7 @@ export default function CardComponent({ title ,width, data, options,type ,primar
             }
             
             
-            //title={title.text}
+            title={title.text}
         /> 
         <Popover
                 id={id}
