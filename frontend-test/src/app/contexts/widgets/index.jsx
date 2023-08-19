@@ -12,6 +12,7 @@ const WidgetsProvider = ({ children }) => {
 
       const addWidget = (widget) => {
         setWidgets([...widgets, {id: uuidv4(), ...widget}])
+        console.log(widgets)
       }
 
       const updateWidget = (id, updatedWidget) => {

@@ -20,7 +20,8 @@ export default function Widget({widget}){
     return(
         <CardComponent
             type={widget.type}
-            title={widget.name}
+            options={widget.options}
+            title={widget.options.title}
             width={'w-8/12'}
             primaryButton={'Editar'}
             secondaryButton={'excluir'}

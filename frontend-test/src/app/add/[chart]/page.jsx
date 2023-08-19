@@ -1,7 +1,8 @@
-import BarForm from "@/app/components/forms/barForm"
-import DonutForm from "@/app/components/forms/donutForm"
+
 import LineForm from "@/app/components/forms/lineForm"
 import PieForm from "@/app/components/forms/pieForm"
+import BarForm from "@/app/components/forms/barForm"
+import DonutForm from "@/app/components/forms/donutForm"
 
 import { Typography } from "@mui/material"
 
@@ -13,11 +14,11 @@ export default function addPage({
             case 'line':
                 return <LineForm operation="add"/>
             case 'pie':
-                return <PieForm operation="add"/>
+                return <PieForm chartType={chart} operation="add"/>
             case 'bar':
-                return <BarForm operation="add"/>
+                return <BarForm chartType={chart} operation="add"/>
             case 'donut':
-                return <DonutForm operation="add"/>
+                return <DonutForm chartType={chart} operation="add"/>
             
         }
     }

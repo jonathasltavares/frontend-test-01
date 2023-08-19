@@ -8,8 +8,9 @@ import Popover from "@mui/material/Popover";
 import Button from '@mui/material/Button';
 
 import React from 'react';
+import ChartComponent from './chart';
 
-export default function CardComponent({ width, title, type ,primaryButton, secondaryButton, primaryClick, secondaryClick }) {
+export default function CardComponent({ title ,width, data, options,type ,primaryButton, secondaryButton, primaryClick, secondaryClick }) {
     const [anchorEl, setAnchorEl] = React.useState(
         null
       );
@@ -34,7 +35,7 @@ export default function CardComponent({ width, title, type ,primaryButton, secon
         handleClose()
       }
 
-    return(
+      return(
         <Card className={width}>
         <CardHeader
             action={
@@ -44,7 +45,7 @@ export default function CardComponent({ width, title, type ,primaryButton, secon
             }
             
             
-            title={title}
+            //title={title.text}
         /> 
         <Popover
                 id={id}
@@ -60,7 +61,7 @@ export default function CardComponent({ width, title, type ,primaryButton, secon
             <Button variant="text" color="error" onClick={handleSecondaryClick}>{secondaryButton}</Button>
         </Popover>
         <CardContent>
-          <h1>{type}</h1>
+          <ChartComponent type={type} data={data} options={options} />
       </CardContent>
     </Card>
     )

@@ -1,80 +1,115 @@
-"use client";
-import { useState, useContext, useEffect } from "react";
-
-import InputComponent from "./input";
-import ButtonComponent from "./button";
+'use client'
+import React, { useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { WidgetsContext } from '@/app/contexts/widgets';
+import { Box } from '@mui/material';
+import InputComponent from './input';
+import ButtonComponent from './button';
 
-import { useRouter } from "next/navigation";
-import { Box } from "@mui/material";
+export default function BarForm({ operation, id }) {
+  const { widgets, addWidget, updateWidget } = useContext(WidgetsContext);
+  const router = useRouter();
 
-export default function barForm({operation, id}) {
-  const { widgets, addWidget, updateWidget } = useContext(WidgetsContext)
-  const router = useRouter()
-  const [isReady, setIsReady] = useState(false)
-  const [inputNameData, setInputNameData] = useState("");
-  const handleChange = (event) => {
-    setInputNameData(event.target.value);
+  const [chartTitle, setChartTitle] = useState('');
+  const [dataSource, setDataSource] = useState('');
+
+  const handleChartTitleChange = (event) => {
+    setChartTitle(event.target.value);
+  };
+  const handleDataSourceChange = (event) => {
+    setDataSource(event.target.value);
   };
 
+  const handleSubmit = () => {
+    const data = dataSource.split(',').map((item) => parseFloat(item.trim()));
+
+    const options = {
+      chart: {
+        type: 'column'
+      },
+      title: {
+          text: chartTitle
+      },
+      series: [{
+          name: '',
+          data: data
+
+      }]
+};
+
+    sendData(options);
+  };
+
+  const [isReady, setIsReady] = useState(false);
   useEffect(() => {
-    switch(operation){
+    switch (operation) {
       case 'add':
-        setInputNameData('')
-        setIsReady(true)
+        setIsReady(true);
         break;
       case 'update':
         const fetchWidgets = async () => {
-          const widget = widgets.find(widget => widget.id == id)
-          setInputNameData(widget.name)
-          setIsReady(true)
-      }
-      fetchWidgets()
-      console.log(widgets)
-      break;
-    }
-  }, [operation])
-
-  const  handleClick = ()=>{
-    switch(operation){
-      case 'add':
-        if(inputNameData.length > 0){
-          addWidget({name: inputNameData, type: 'bar'})
-          setInputNameData('')
-          router.push('/')
-        }
+          const widget = widgets.find((widget) => widget.id == id);
+          setIsReady(true);
+        };
+        fetchWidgets();
         break;
-        case 'update':
-          if (inputNameData.length > 0) {
-            const updatedWidget = { id: id, name: inputNameData, type: 'bar' };
-            updateWidget(id, updatedWidget); 
-            setInputNameData('');
-            router.push('/');
-          }
-          break;
-      }
     }
+  }, [operation]);
 
-    if(isReady){
-      return(
+  const sendData = (options) => {
+    switch (operation) {
+      case 'add':
+        console.log(options)
+        addWidget({type:"donut", options});
+        router.push('/');
+        break;
 
+      case 'update':
+        updateWidget(id, options);
+        router.push('/');
+        break;
+    }
+  };
+
+  if (isReady) {
+    return (
       <Box
-          component="form"
-          sx={{
+        component="form"
+        sx={{
           '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
+        }}
+        noValidate
+        autoComplete="off"
       >
-          <div className='flex flex-col items-center'>
-              <InputComponent value={inputNameData} isDisabled={false} isRequired={true} label="Name" onChange={handleChange} />
-              <ButtonComponent size={'large'} isDisabled={false} variant="contained" text={operation} color="#1976d2" onClick={handleClick}/>
-          </div>
+        <div className="flex flex-col items-center">
+        <InputComponent
+            value={chartTitle}
+            isDisabled={false}
+            isRequired={true}
+            label="Chart Title"
+            name="chartTitle"
+            onChange={handleChartTitleChange}
+          />
+          <InputComponent
+            value={dataSource}
+            isDisabled={false}
+            isRequired={true}
+            label="Enter dataSource (comma-separated)"
+            name="dataSource"
+            onChange={handleDataSourceChange}
+          />
+          <ButtonComponent
+            size={'large'}
+            isDisabled={false}
+            variant="contained"
+            text="Generate Chart"
+            color="#1976d2"
+            onClick={handleSubmit}
+          />
+        </div>
       </Box>
-  )
-  }else{
-      return(
-          <h1>carregando...</h1>
-      )
+    );
+  } else {
+    return <h1>Carregando...</h1>;
   }
 }

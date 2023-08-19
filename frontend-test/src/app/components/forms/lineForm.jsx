@@ -1,81 +1,131 @@
 'use client'
-import InputComponent from "./input"
-import ButtonComponent from "./button"
+import React, { useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { WidgetsContext } from '@/app/contexts/widgets';
+import { Box } from '@mui/material';
+import InputComponent from './input';
+import ButtonComponent from './button';
 
-import { useState, useContext, useEffect } from "react"
-import { useRouter } from "next/navigation"
+export default function LineForm({ operation, id }) {
+  const { widgets, addWidget, updateWidget } = useContext(WidgetsContext);
+  const router = useRouter();
 
-import { WidgetsContext } from "@/app/contexts/widgets"
+  const [chartTitle, setChartTitle] = useState('');
+  const [yAxisTitle, setYAxisTitle] = useState('');
+  const [dataSource, setDataSource] = useState('');
 
-import { Box } from "@mui/material"
-
-export default function lineForm({operation, id}) {
-    const { widgets, addWidget, updateWidget } = useContext(WidgetsContext)
-    const router = useRouter()
-    const [inputNameData, setInputNameData] = useState("");
-    const handleChange = (event) => {
-      setInputNameData(event.target.value);
-    };
+  const handleChartTitleChange = (event) => {
+    setChartTitle(event.target.value);
+  };
+  const handleYAxisTitleChange = (event) => {
+    setYAxisTitle(event.target.value);
+  };
   
-    const [isReady, setIsReady] = useState(false)
-    useEffect(() => {
-        switch(operation){
-          case 'add':
-            setInputNameData('')
-            setIsReady(true)
-            break;
-          case 'update':
-            const fetchWidgets = async () => {
-                const widget = widgets.find(widget => widget.id == id)
-                setInputNameData(widget.name)
-                setIsReady(true)
-            }
-            fetchWidgets()
-            console.log(widgets)
-            break;
-        }
-      }, [operation])
-  
-    const  handleClick = ()=>{
-      switch(operation){
-        case 'add':
-          if(inputNameData.length > 0){
-            addWidget({name: inputNameData, type: 'line'})
-            setInputNameData('')
-            router.push('/')
-          }
-          break;
-          case 'update':
-            if (inputNameData.length > 0) {
-              const updatedWidget = { id: id, name: inputNameData, type: 'line' };
-              updateWidget(id, updatedWidget); 
-              setInputNameData('');
-              router.push('/');
-            }
-            break;
-        }
-      }
+  const handleDataSourceChange = (event) => {
+    setDataSource(event.target.value);
+  };
 
+  const handleSubmit = () => {
+    const data = dataSource.split(',').map((item) => parseFloat(item.trim()));
 
-    if(isReady){
-        return(
-        <Box
-            component="form"
-            sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <div className='flex flex-col items-center'>
-                <InputComponent value={inputNameData} isDisabled={false} isRequired={true} label="Name" onChange={handleChange} />
-                <ButtonComponent size={'large'} isDisabled={false} variant="contained" text={operation} color="#1976d2" onClick={handleClick}/>
-            </div>
-        </Box>
-    )
-    }else{
-        return(
-            <h1>carregando...</h1>
-        )
+    const options = {
+      title: {
+        text: chartTitle
+    },
+
+    yAxis: {
+        title: {
+            text: yAxisTitle
+        }
+    },
+    series: [{
+        name: '',
+        data: data
+    }]
+    
+  }
+
+    sendData(options);
+  };
+
+  const [isReady, setIsReady] = useState(false);
+  useEffect(() => {
+    switch (operation) {
+      case 'add':
+        setIsReady(true);
+        break;
+      case 'update':
+        const fetchWidgets = async () => {
+          const widget = widgets.find((widget) => widget.id == id);
+          setIsReady(true);
+        };
+        fetchWidgets();
+        break;
     }
+  }, [operation]);
+
+  const sendData = (options) => {
+    switch (operation) {
+      case 'add':
+        console.log(options)
+        addWidget({type:"line", options});
+        router.push('/');
+        break;
+
+      case 'update':
+        updateWidget(id, data);
+        router.push('/');
+        break;
+    }
+  };
+
+  if (isReady) {
+    return (
+      <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <div className="flex flex-col items-center">
+          <InputComponent
+            value={chartTitle}
+            isDisabled={false}
+            isRequired={true}
+            label="Chart Title"
+            name="chartTitle"
+            onChange={handleChartTitleChange}
+          />
+          <InputComponent
+            value={yAxisTitle}
+            isDisabled={false}
+            isRequired={true}
+            label="yAxis Title"
+            name="yAxisTitle"
+            onChange={handleYAxisTitleChange}
+          />
+          <InputComponent
+            value={dataSource}
+            isDisabled={false}
+            isRequired={true}
+            label="Enter dataSource (comma-separated)"
+            name="dataSource"
+            onChange={handleDataSourceChange}
+          />
+          <ButtonComponent
+            size={'large'}
+            isDisabled={false}
+            variant="contained"
+            text="Generate Chart"
+            color="#1976d2"
+            onClick={handleSubmit}
+          />
+        </div>
+      </Box>
+    );
+  } else {
+    return <h1>Carregando...</h1>;
+  }
 }
