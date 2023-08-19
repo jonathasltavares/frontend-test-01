@@ -49,6 +49,8 @@ export default function BarForm({ operation, id }) {
       case 'update':
         const fetchWidgets = async () => {
           const widget = widgets.find((widget) => widget.id == id);
+          setChartTitle(widget.options.title.text);
+          setDataSource(widget.options.series[0].data.join(', '));
           setIsReady(true);
         };
         fetchWidgets();
@@ -65,7 +67,8 @@ export default function BarForm({ operation, id }) {
         break;
 
       case 'update':
-        updateWidget(id, options);
+        const uptadedWidget = {id:id, type:"donut", options}
+        updateWidget(id,uptadedWidget);
         router.push('/');
         break;
     }

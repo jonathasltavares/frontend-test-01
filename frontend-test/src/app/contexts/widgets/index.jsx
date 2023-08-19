@@ -19,6 +19,8 @@ const WidgetsProvider = ({ children }) => {
         setWidgets(
           widgets.map((widget) => (widget.id === id ? updatedWidget : widget))
         )
+        console.log(updatedWidget)
+        console.log(widgets)
       }
 
       const deleteWidget = (id) => {

@@ -57,6 +57,9 @@ export default function LineForm({ operation, id }) {
       case 'update':
         const fetchWidgets = async () => {
           const widget = widgets.find((widget) => widget.id == id);
+          setChartTitle(widget.options.title.text);
+          setYAxisTitle(widget.options.yAxis.title.text);
+          setDataSource(widget.options.series[0].data.join(', '));
           setIsReady(true);
         };
         fetchWidgets();
@@ -73,7 +76,8 @@ export default function LineForm({ operation, id }) {
         break;
 
       case 'update':
-        updateWidget(id, data);
+        const uptadedWidget = {id:id, type:"line", options}
+        updateWidget(id,uptadedWidget);
         router.push('/');
         break;
     }

@@ -7,7 +7,7 @@ import { WidgetsContext } from "../contexts/widgets"
 import { useRouter } from "next/navigation";
 
 export default function Widget({widget}){
-    const { editWidget, deleteWidget } = useContext(WidgetsContext)
+    const { deleteWidget } = useContext(WidgetsContext)
     const router = useRouter()
 
     const handleDeleteWidget = () => {
@@ -17,11 +17,12 @@ export default function Widget({widget}){
     const handleEditWidget = () => {
         router.push(`/edit/${widget.type}/${widget.id}`)
     }
+    console.log(widget)
     return(
         <CardComponent
             type={widget.type}
             options={widget.options}
-            title={widget.options.title}
+            title={widget.options.title.text}
             width={'w-8/12'}
             primaryButton={'Editar'}
             secondaryButton={'excluir'}

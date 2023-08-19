@@ -47,6 +47,8 @@ export default function PieForm({ operation, id }) {
       case 'update':
         const fetchWidgets = async () => {
           const widget = widgets.find((widget) => widget.id == id);
+          setChartTitle(widget.options.title.text);
+          setDataSource(widget.options.series[0].data.join(', '));
           setIsReady(true);
         };
         fetchWidgets();
@@ -63,7 +65,8 @@ export default function PieForm({ operation, id }) {
         break;
 
       case 'update':
-        updateWidget(id, options);
+        const uptadedWidget = {id:id, type:"pie", options}
+        updateWidget(id,uptadedWidget);
         router.push('/');
         break;
     }
