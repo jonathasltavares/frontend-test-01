@@ -6,7 +6,7 @@ import { WidgetsContext } from "@/app/contexts/widgets";
 
 
 export default function SearchBar(){
-    const { widgets, addWidget, updateWidget, searchWidgets } = useContext(WidgetsContext);
+    const { searchWidgets } = useContext(WidgetsContext);
     const [searchTerm, setSearchTerm] = useState('')
     const handleChange = (e)=>{
         setSearchTerm(e)

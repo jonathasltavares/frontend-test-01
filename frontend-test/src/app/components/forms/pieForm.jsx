@@ -7,7 +7,7 @@ import InputComponent from './input';
 import ButtonComponent from './button';
 
 export default function PieForm({ operation, id }) {
-  const { widgets, addWidget, updateWidget } = useContext(WidgetsContext);
+  const { filtedWidgets, addWidget, updateWidget } = useContext(WidgetsContext);
   const router = useRouter();
 
   const [chartTitle, setChartTitle] = useState('');
@@ -46,7 +46,7 @@ export default function PieForm({ operation, id }) {
         break;
       case 'update':
         const fetchWidgets = async () => {
-          const widget = widgets.find((widget) => widget.id == id);
+          const widget = filtedWidgets.find((widget) => widget.id == id);
           setChartTitle(widget.options.title.text);
           setDataSource(widget.options.series[0].data.join(', '));
           setIsReady(true);
