@@ -62,12 +62,12 @@ export default function BarForm({ operation, id }) {
     switch (operation) {
       case 'add':
         console.log(options)
-        addWidget({type:"donut", options});
+        addWidget({type:"bar", options});
         router.push('/');
         break;
 
       case 'update':
-        const uptadedWidget = {id:id, type:"donut", options}
+        const uptadedWidget = {id:id, type:"bar", options}
         updateWidget(id,uptadedWidget);
         router.push('/');
         break;
