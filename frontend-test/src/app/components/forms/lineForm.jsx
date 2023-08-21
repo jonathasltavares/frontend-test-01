@@ -1,18 +1,18 @@
-'use client'
-import React, { useState, useContext, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { WidgetsContext } from '@/app/contexts/widgets';
-import { Box } from '@mui/material';
-import InputComponent from './input';
-import ButtonComponent from './button';
+"use client";
+import React, { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { WidgetsContext } from "@/app/contexts/widgets";
+import { Box } from "@mui/material";
+import InputComponent from "./input";
+import ButtonComponent from "./button";
 
 export default function LineForm({ operation, id }) {
   const { filtedWidgets, addWidget, updateWidget } = useContext(WidgetsContext);
   const router = useRouter();
 
-  const [chartTitle, setChartTitle] = useState('');
-  const [yAxisTitle, setYAxisTitle] = useState('');
-  const [dataSource, setDataSource] = useState('');
+  const [chartTitle, setChartTitle] = useState("");
+  const [yAxisTitle, setYAxisTitle] = useState("");
+  const [dataSource, setDataSource] = useState("");
 
   const handleChartTitleChange = (event) => {
     setChartTitle(event.target.value);
@@ -20,30 +20,31 @@ export default function LineForm({ operation, id }) {
   const handleYAxisTitleChange = (event) => {
     setYAxisTitle(event.target.value);
   };
-  
+
   const handleDataSourceChange = (event) => {
     setDataSource(event.target.value);
   };
 
   const handleSubmit = () => {
-    const data = dataSource.split(',').map((item) => parseFloat(item.trim()));
+    const data = dataSource.split(",").map((item) => parseFloat(item.trim()));
 
     const options = {
       title: {
-        text: chartTitle
-    },
+        text: chartTitle,
+      },
 
-    yAxis: {
+      yAxis: {
         title: {
-            text: yAxisTitle
-        }
-    },
-    series: [{
-        name: '',
-        data: data
-    }]
-    
-  }
+          text: yAxisTitle,
+        },
+      },
+      series: [
+        {
+          name: "",
+          data: data,
+        },
+      ],
+    };
 
     sendData(options);
   };
@@ -51,15 +52,15 @@ export default function LineForm({ operation, id }) {
   const [isReady, setIsReady] = useState(false);
   useEffect(() => {
     switch (operation) {
-      case 'add':
+      case "add":
         setIsReady(true);
         break;
-      case 'update':
+      case "update":
         const fetchWidgets = async () => {
           const widget = filtedWidgets.find((widget) => widget.id == id);
           setChartTitle(widget.options.title.text);
           setYAxisTitle(widget.options.yAxis.title.text);
-          setDataSource(widget.options.series[0].data.join(', '));
+          setDataSource(widget.options.series[0].data.join(", "));
           setIsReady(true);
         };
         fetchWidgets();
@@ -69,16 +70,15 @@ export default function LineForm({ operation, id }) {
 
   const sendData = (options) => {
     switch (operation) {
-      case 'add':
-        console.log(options)
-        addWidget({type:"line", options});
-        router.push('/');
+      case "add":
+        addWidget({ type: "line", options });
+        router.push("/");
         break;
 
-      case 'update':
-        const uptadedWidget = {id:id, type:"line", options}
-        updateWidget(id,uptadedWidget);
-        router.push('/');
+      case "update":
+        const uptadedWidget = { id: id, type: "line", options };
+        updateWidget(id, uptadedWidget);
+        router.push("/");
         break;
     }
   };
@@ -88,11 +88,10 @@ export default function LineForm({ operation, id }) {
       <Box
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
         }}
         noValidate
-        autoComplete="off"
-      >
+        autoComplete="off">
         <div className="flex flex-col items-center">
           <InputComponent
             value={chartTitle}
@@ -119,7 +118,7 @@ export default function LineForm({ operation, id }) {
             onChange={handleDataSourceChange}
           />
           <ButtonComponent
-            size={'large'}
+            size={"large"}
             isDisabled={false}
             variant="contained"
             text="Generate Chart"
